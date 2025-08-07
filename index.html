@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application de Services Juridiques RDC</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>Rendez-vous Avocat RDC</h1>
+        <p>La façon la plus simple de prendre rendez-vous avec un avocat en République Démocratique du Congo</p>
+    </header>
+
+    <!-- Authentication Section -->
+    <div id="auth-section" class="auth-section">
+        <div class="auth-container">
+            <!-- Login Form -->
+            <div id="login-form" class="auth-form">
+                <h2><i class="fas fa-user-circle"></i> Connexion</h2>
+                <p>Connectez-vous à votre compte pour accéder aux services</p>
+                
+                <div class="user-type-buttons">
+                    <button type="button" class="user-type-btn active" onclick="switchToLawyerLogin()">
+                        <i class="fas fa-gavel"></i> Avocat
+                    </button>
+                    <button type="button" class="user-type-btn" onclick="switchToClientLogin()">
+                        <i class="fas fa-user"></i> Client
+                    </button>
+                </div>
+                
+                <form id="lawyerLoginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Professionnel</label>
+                        <input type="email" id="loginEmail" name="email" required placeholder="votre.email@cabinet.rdc">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPassword">Mot de Passe</label>
+                        <input type="password" id="loginPassword" name="password" required placeholder="Votre mot de passe">
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        <label for="rememberMe">Se souvenir de moi</label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Se Connecter
+                    </button>
+                </form>
+                
+                <div class="auth-links">
+                    <a href="#" onclick="showForgotPassword()">Mot de passe oublié ?</a>
+                    <a href="#" onclick="showSignupForm()">Nouveau compte avocat ?</a>
+                    <a href="#" onclick="showClientSignupForm()">Nouveau compte client ?</a>
+                </div>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signup-form" class="auth-form" style="display: none;">
+                <h2><i class="fas fa-user-plus"></i> Inscription Avocat</h2>
+                <p>Créez votre compte pour rejoindre notre réseau d'avocats</p>
+                
+                <form id="lawyerSignupForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="signupFirstName">Prénom</label>
+                            <input type="text" id="signupFirstName" name="firstName" required placeholder="Jean">
+                        </div>
+                        <div class="form-group">
+                            <label for="signupLastName">Nom</label>
+                            <input type="text" id="signupLastName" name="lastName" required placeholder="Mukendi">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupEmail">Email Professionnel</label>
+                        <input type="email" id="signupEmail" name="email" required placeholder="jean.mukendi@cabinet.rdc">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupPhone">Téléphone</label>
+                        <input type="tel" id="signupPhone" name="phone" required placeholder="+243 123 456 789">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupSpecialization">Spécialisation Principale</label>
+                        <select id="signupSpecialization" name="specialization" required>
+                            <option value="">Sélectionnez votre spécialisation</option>
+                            <option value="Droit de la Famille">Droit de la Famille</option>
+                            <option value="Droit des Affaires">Droit des Affaires</option>
+                            <option value="Droit Pénal">Droit Pénal</option>
+                            <option value="Droit Minier">Droit Minier</option>
+                            <option value="Droit Foncier">Droit Foncier</option>
+                            <option value="Droit du Travail">Droit du Travail</option>
+                            <option value="Droit Civil">Droit Civil</option>
+                            <option value="Droit Commercial">Droit Commercial</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupLocation">Ville de Pratique</label>
+                        <select id="signupLocation" name="location" required>
+                            <option value="">Sélectionnez votre ville</option>
+                            <option value="Kinshasa">Kinshasa</option>
+                            <option value="Lubumbashi">Lubumbashi</option>
+                            <option value="Goma">Goma</option>
+                            <option value="Kisangani">Kisangani</option>
+                            <option value="Bukavu">Bukavu</option>
+                            <option value="Matadi">Matadi</option>
+                            <option value="Mbuji-Mayi">Mbuji-Mayi</option>
+                            <option value="Kananga">Kananga</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupExperience">Années d'Expérience</label>
+                        <select id="signupExperience" name="experience" required>
+                            <option value="">Sélectionnez votre expérience</option>
+                            <option value="1-3 ans">1-3 ans</option>
+                            <option value="4-7 ans">4-7 ans</option>
+                            <option value="8-12 ans">8-12 ans</option>
+                            <option value="13-20 ans">13-20 ans</option>
+                            <option value="20+ ans">20+ ans</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupHourlyRate">Tarif Horaire (USD)</label>
+                        <select id="signupHourlyRate" name="hourlyRate" required>
+                            <option value="">Sélectionnez votre tarif</option>
+                            <option value="25$">25$ - Débutant</option>
+                            <option value="35$">35$ - Intermédiaire</option>
+                            <option value="50$">50$ - Expérimenté</option>
+                            <option value="75$">75$ - Expert</option>
+                            <option value="100$">100$ - Spécialiste</option>
+                            <option value="150$">150$ - Senior</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupBarNumber">Numéro du Barreau</label>
+                        <input type="text" id="signupBarNumber" name="barNumber" required placeholder="BAR-2024-001">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupPassword">Mot de Passe</label>
+                        <input type="password" id="signupPassword" name="password" required placeholder="Mot de passe sécurisé">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupConfirmPassword">Confirmer le Mot de Passe</label>
+                        <input type="password" id="signupConfirmPassword" name="confirmPassword" required placeholder="Confirmez votre mot de passe">
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                        <label for="agreeTerms">J'accepte les <a href="#" onclick="showTerms()">conditions d'utilisation</a> et la <a href="#" onclick="showPrivacy()">politique de confidentialité</a></label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i> Créer Mon Compte
+                    </button>
+                </form>
+                
+                <div class="auth-links">
+                    <a href="#" onclick="showLoginForm()">Déjà un compte ? Se connecter</a>
+                </div>
+            </div>
+
+            <!-- Client Signup Form -->
+            <div id="client-signup-form" class="auth-form" style="display: none;">
+                <h2><i class="fas fa-user-plus"></i> Inscription Client</h2>
+                <p>Créez votre compte client pour accéder aux services juridiques</p>
+                
+                <form id="clientSignupForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="clientSignupFirstName">Prénom</label>
+                            <input type="text" id="clientSignupFirstName" name="firstName" required placeholder="Pierre">
+                        </div>
+                        <div class="form-group">
+                            <label for="clientSignupLastName">Nom</label>
+                            <input type="text" id="clientSignupLastName" name="lastName" required placeholder="Lumumba">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="clientSignupEmail">Email</label>
+                        <input type="email" id="clientSignupEmail" name="email" required placeholder="pierre.lumumba@email.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="clientSignupPhone">Téléphone</label>
+                        <input type="tel" id="clientSignupPhone" name="phone" required placeholder="+243 123 456 789">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="clientSignupCity">Ville</label>
+                        <select id="clientSignupCity" name="city" required>
+                            <option value="">Sélectionnez votre ville</option>
+                            <option value="Kinshasa">Kinshasa</option>
+                            <option value="Lubumbashi">Lubumbashi</option>
+                            <option value="Goma">Goma</option>
+                            <option value="Kisangani">Kisangani</option>
+                            <option value="Bukavu">Bukavu</option>
+                            <option value="Matadi">Matadi</option>
+                            <option value="Mbuji-Mayi">Mbuji-Mayi</option>
+                            <option value="Kananga">Kananga</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="clientSignupCommune">Commune</label>
+                        <select id="clientSignupCommune" name="commune" required>
+                            <option value="">Sélectionnez votre commune</option>
+                            <option value="Limete">Limete</option>
+                            <option value="Gombe">Gombe</option>
+                            <option value="Masina">Masina</option>
+                            <option value="Ngaliema">Ngaliema</option>
+                            <option value="Mont-Ngafula">Mont-Ngafula</option>
+                            <option value="Selembao">Selembao</option>
+                            <option value="Bumbu">Bumbu</option>
+                            <option value="Makala">Makala</option>
+                            <option value="Ngaba">Ngaba</option>
+                            <option value="Lemba">Lemba</option>
+                            <option value="Kinshasa">Kinshasa</option>
+                            <option value="Barumbu">Barumbu</option>
+                            <option value="Kintambo">Kintambo</option>
+                            <option value="Lingwala">Lingwala</option>
+                            <option value="Kasa-Vubu">Kasa-Vubu</option>
+                            <option value="Bandalungwa">Bandalungwa</option>
+                            <option value="Kalamu">Kalamu</option>
+                            <option value="Kisenso">Kisenso</option>
+                            <option value="Ndjili">Ndjili</option>
+                            <option value="Kimbanseke">Kimbanseke</option>
+                            <option value="Maluku">Maluku</option>
+                            <option value="Nsele">Nsele</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="clientSignupLegalNeed">Type de Besoin Juridique</label>
+                        <select id="clientSignupLegalNeed" name="legalNeed" required>
+                            <option value="">Sélectionnez votre besoin</option>
+                            <option value="Consultation Générale">Consultation Générale</option>
+                            <option value="Droit de la Famille">Droit de la Famille</option>
+                            <option value="Droit des Affaires">Droit des Affaires</option>
+                            <option value="Droit Pénal">Droit Pénal</option>
+                            <option value="Droit Minier">Droit Minier</option>
+                            <option value="Droit Foncier">Droit Foncier</option>
+                            <option value="Droit du Travail">Droit du Travail</option>
+                            <option value="Droit Civil">Droit Civil</option>
+                            <option value="Droit Commercial">Droit Commercial</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="clientSignupPassword">Mot de Passe</label>
+                        <input type="password" id="clientSignupPassword" name="password" required placeholder="Mot de passe sécurisé">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="clientSignupConfirmPassword">Confirmer le Mot de Passe</label>
+                        <input type="password" id="clientSignupConfirmPassword" name="confirmPassword" required placeholder="Confirmez votre mot de passe">
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="clientAgreeTerms" name="agreeTerms" required>
+                        <label for="clientAgreeTerms">J'accepte les <a href="#" onclick="showTerms()">conditions d'utilisation</a> et la <a href="#" onclick="showPrivacy()">politique de confidentialité</a></label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i> Créer Mon Compte Client
+                    </button>
+                </form>
+                
+                <div class="auth-links">
+                    <a href="#" onclick="showLoginForm()">Déjà un compte ? Se connecter</a>
+                    <a href="#" onclick="showLawyerSignupForm()">Espace Avocat</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content" style="display: none;">
+        <div class="services-grid">
+            <!-- Ask a Lawyer -->
+            <div class="service-card" onclick="showAskLawyer()">
+                <div class="icon">
+                    <i class="fas fa-gavel"></i>
+                </div>
+                <h3>Demander un Avocat</h3>
+            </div>
+
+            <!-- Find Lawyer -->
+            <div class="service-card" onclick="showFindLawyer()">
+                <div class="icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3>Trouver un Avocat</h3>
+            </div>
+
+            <!-- Appointments -->
+            <div class="service-card" onclick="showAppointments()">
+                <div class="icon">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <h3>Rendez-vous</h3>
+            </div>
+
+            <!-- Q & A -->
+            <div class="service-card" onclick="showQA()">
+                <div class="icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3>Q & R</h3>
+            </div>
+
+            <!-- Terms of Service -->
+            <div class="service-card" onclick="showTerms()">
+                <div class="icon">
+                    <i class="fas fa-file-contract"></i>
+                </div>
+                <h3>Conditions d'Utilisation</h3>
+            </div>
+
+            <!-- Privacy Policy -->
+            <div class="service-card" onclick="showPrivacy()">
+                <div class="icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Politique de Confidentialité</h3>
+            </div>
+
+            <!-- About Us -->
+            <div class="service-card" onclick="showAbout()">
+                <div class="icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <h3>À Propos</h3>
+            </div>
+
+            <!-- My Account -->
+            <div class="service-card" onclick="showAccount()">
+                <div class="icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>Mon Compte</h3>
+            </div>
+        </div>
+    </main>
+
+    <!-- Navigation Bar -->
+    <nav id="nav-bar" class="nav-bar" style="display: none;">
+        <button class="nav-btn" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <button class="nav-btn" onclick="goHome()">
+            <i class="fas fa-home"></i>
+        </button>
+        <button class="nav-btn" onclick="showRecent()">
+            <i class="fas fa-th"></i>
+        </button>
+        <button class="nav-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+    </nav>
+
+    <!-- Modal Overlay -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
